@@ -42,13 +42,13 @@ namespace Ecommerce.Application.Impl
 
                 var carrinhoAtualizado = _carrinhoRepository.Atualizar(carrinho);
 
-                resultado.Mensagem = "Produto incluído com sucesso";
+                resultado.Mensagem = "Produto incluído no carrinho com sucesso";
                 resultado.Dado = carrinhoAtualizado;
                 resultado.Sucesso = true;
             }
             else
             {
-                resultado.Mensagem = "Produto não incluído";
+                resultado.Mensagem = "Produto não incluído no carrinho";
                 resultado.Sucesso = false;
             }
 

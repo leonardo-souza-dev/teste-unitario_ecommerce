@@ -40,7 +40,7 @@ namespace Ecommerce.Web
             });
 
             services.Configure<EcommerceDatabaseSettings>(Configuration.GetSection(nameof(EcommerceDatabaseSettings)));
-            services.AddSingleton<IEcommerceDatabaseSettings>(sp =>sp.GetRequiredService<IOptions<EcommerceDatabaseSettings>>().Value);
+            services.AddSingleton<IEcommerceDatabaseSettings>(sp => sp.GetRequiredService<IOptions<EcommerceDatabaseSettings>>().Value);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

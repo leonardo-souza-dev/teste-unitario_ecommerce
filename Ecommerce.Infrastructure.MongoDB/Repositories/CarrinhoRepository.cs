@@ -31,7 +31,6 @@ namespace Ecommerce.Infrastructure.MongoDB
 
         public Carrinho Obter(int idCarrinho)
         {
-            //return idCarrinho.HasValue ? new Carrinho(idCarrinho.Value) : new Carrinho();
             return _carrinhos.Find(x => x.IdCarrinho == idCarrinho).FirstOrDefault();
         }
     }
