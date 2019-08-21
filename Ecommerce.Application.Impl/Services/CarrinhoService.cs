@@ -20,7 +20,18 @@ namespace Ecommerce.Application.Impl
 
         public Resultado<Carrinho> AdicionarProdutoAoCarrinho(Produto request, int? idCarrinho)
         {
-            var carrinho = _carrinhoRepository.Obter(idCarrinho);
+            Carrinho carrinho = new Carrinho();
+
+            if (idCarrinho.HasValue)
+            {
+                carrinho = _carrinhoRepository.Obter(idCarrinho.Value);
+
+                if (carrinho == null)
+                {
+                    carrinho = _carrinhoRepository.Inserir(new Carrinho { IdCarrinho = idCarrinho.Value });
+                }
+            }
+
             var produto = _produtoRepository.Obter(request.IdProduto);
 
             var resultado = new Resultado<Carrinho>();

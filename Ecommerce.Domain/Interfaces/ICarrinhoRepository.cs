@@ -5,6 +5,7 @@ namespace Ecommerce.Domain.Interfaces
     public interface ICarrinhoRepository
     {
         Carrinho Atualizar(Carrinho carrinho);
-        Carrinho Obter(int? idCarrinho);
+        Carrinho Obter(int idCarrinho);
+        Carrinho Inserir(Carrinho carrinho);
     }
 }

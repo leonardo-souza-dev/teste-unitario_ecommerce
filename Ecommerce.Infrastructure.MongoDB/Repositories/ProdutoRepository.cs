@@ -6,6 +6,8 @@ namespace Ecommerce.Infrastructure.MongoDB
     public class ProdutoRepository : IProdutoRepository
     {
         public Produto Obter(int idProduto)
-            => idProduto >= 1 && idProduto <= 100 ? new Produto { IdProduto = idProduto } : null;
+        {
+            return idProduto >= 1 && idProduto <= 100 ? new Produto { IdProduto = idProduto } : null;
+        }
     }
 }

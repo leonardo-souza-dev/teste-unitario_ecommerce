@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ecommerce.Application.Impl;
 using Ecommerce.Domain;
+using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Interfaces;
 using Ecommerce.Infrastructure.MongoDB;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,9 @@ namespace Ecommerce.Web
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title= "Employee API", Version = "V1" });
             });
+
+            services.Configure<EcommerceDatabaseSettings>(Configuration.GetSection(nameof(EcommerceDatabaseSettings)));
+            services.AddSingleton<IEcommerceDatabaseSettings>(sp =>sp.GetRequiredService<IOptions<EcommerceDatabaseSettings>>().Value);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

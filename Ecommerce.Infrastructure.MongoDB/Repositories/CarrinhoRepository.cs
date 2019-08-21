@@ -1,14 +1,38 @@
 ﻿using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Interfaces;
+using MongoDB.Driver;
+using System.Linq;
 
 namespace Ecommerce.Infrastructure.MongoDB
 {
     public class CarrinhoRepository : ICarrinhoRepository
     {
-        public Carrinho Atualizar(Carrinho carrinho) =>
-            carrinho;
+        private readonly IMongoCollection<Carrinho> _carrinhos;
 
-        public Carrinho Obter(int? idCarrinho) =>
-            idCarrinho.HasValue ? new Carrinho(idCarrinho.Value) : new Carrinho();
+        public CarrinhoRepository(IEcommerceDatabaseSettings settings)
+        {
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+
+            _carrinhos = database.GetCollection<Carrinho>(settings.CarrinhoCollectionName);
+        }
+
+        public Carrinho Atualizar(Carrinho carrinho)
+        {
+            return carrinho;
+        }
+
+        public Carrinho Inserir(Carrinho carrinho)
+        {
+            _carrinhos.InsertOne(carrinho);
+
+            return carrinho;
+        }
+
+        public Carrinho Obter(int idCarrinho)
+        {
+            //return idCarrinho.HasValue ? new Carrinho(idCarrinho.Value) : new Carrinho();
+            return _carrinhos.Find(x => x.IdCarrinho == idCarrinho).FirstOrDefault();
+        }
     }
 }
