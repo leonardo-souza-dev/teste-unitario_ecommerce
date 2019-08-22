@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Application.Messages
 {
-    public class IncluirProdutoResponse
+    public class IncluirProdutoNoCarrinhoRequest
     {
-        public bool Sucesso { get; set; }
-        public string Mensagem { get; set; }
+        public int IdProduto { get; set; }
+        public int? IdCarrinho { get; set; }
     }
 }

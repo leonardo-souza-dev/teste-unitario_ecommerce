@@ -11,21 +11,21 @@ namespace Ecommerce.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarrinhoController : ControllerBase
+    public class ProdutoController : ControllerBase
     {
-        private ICarrinhoService _carrinhoService;
+        private IProdutoService _produtoService;
 
-        public CarrinhoController(ICarrinhoService carrinhoService)
+        public ProdutoController(IProdutoService produtoService)
         {
-            _carrinhoService = carrinhoService;
+            _produtoService = produtoService;
         }
         
-        [HttpPut("/AdicionarProdutoAoCarrinho")]
-        public ActionResult<IncluirProdutoNoCarrinhoResponse> Put([FromBody]IncluirProdutoNoCarrinhoRequest request)
+        [HttpPut("/InserirProduto")]
+        public ActionResult<IncluirProdutoNoCarrinhoResponse> Put([FromBody]InserirProdutoRequest request)
         {
             try
             {
-                var resultado = _carrinhoService.AdicionarProdutoAoCarrinho(new Produto { IdProduto = request.IdProduto  }, request.IdCarrinho);
+                var resultado = _produtoService.Inserir(new Produto { IdProduto = request.IdProduto });
 
                 return new IncluirProdutoNoCarrinhoResponse { Mensagem = resultado.Mensagem, Sucesso = true };
             }

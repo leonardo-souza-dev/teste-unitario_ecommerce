@@ -33,6 +33,7 @@ namespace Ecommerce.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<ICarrinhoService, CarrinhoService>();
+            services.AddTransient<IProdutoService, ProdutoService>();
             services.AddTransient<ICarrinhoRepository, CarrinhoRepository>();
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
             services.AddSwaggerGen(c => {

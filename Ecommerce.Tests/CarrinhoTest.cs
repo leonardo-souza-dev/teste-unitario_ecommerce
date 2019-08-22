@@ -16,6 +16,7 @@ namespace Ecommerce.Tests
         private ICarrinhoService _carrinhoService;
         private ICarrinhoRepository _carrinhoRepository;
         private IProdutoRepository _produtoRepository;
+        private IProdutoService _produtoService;
 
         [SetUp]
         public void Setup()
@@ -25,6 +26,7 @@ namespace Ecommerce.Tests
             _carrinhoRepository = new CarrinhoRepository(settings);
             _produtoRepository = new ProdutoRepository(settings);
             _carrinhoService = new CarrinhoService(_carrinhoRepository, _produtoRepository);
+            _produtoService = new ProdutoService(_produtoRepository);
         }
 
         private static IEcommerceDatabaseSettings ObterSettings()
@@ -39,14 +41,11 @@ namespace Ecommerce.Tests
         }
 
         [Test]
-        [TestCase(1, 50, 3)]
-        [TestCase(1, 12, null)]
-        [TestCase(1, 100, null)]
-        [TestCase(1, 1, 9944326)]
-        public void Validar_Mensagem_Produto_incluido_no_carrinho_com_sucesso(int idCliente, int idProduto, int? idCarrinho)
+        [TestCase(122, null)]
+        public void Validar_Mensagem_Produto_incluido_no_carrinho_com_sucesso(int idProduto, int? idCarrinho)
         {
             var controller = new CarrinhoController(_carrinhoService);
-            var response = controller.Put(new IncluirProdutoRequest { IdProduto = idProduto, IdCarrinho = idCarrinho });
+            var response = controller.Put(new IncluirProdutoNoCarrinhoRequest { IdProduto = idProduto, IdCarrinho = idCarrinho });
 
             var mensagem = response.Value.Mensagem;
 
@@ -54,17 +53,29 @@ namespace Ecommerce.Tests
         }
 
         [Test]
-        [TestCase(1, -1100, null)]
-        [TestCase(1, -1, 9944326)]
-        [TestCase(1, 101, 9944326)]
-        public void Validar_Mensagem_Produto_nao_incluido_no_carrinho(int idCliente, int idProduto, int? idCarrinho)
+        [TestCase(7, null)]
+        [TestCase(-1100, null)]
+        [TestCase(-1, 9944326)]
+        [TestCase(101, 9944326)]
+        public void Validar_Mensagem_Produto_nao_incluido_no_carrinho(int idProduto, int? idCarrinho)
         {
             var controller = new CarrinhoController(_carrinhoService);
-            var response = controller.Put(new IncluirProdutoRequest { IdProduto = idProduto, IdCarrinho = idCarrinho });
+            var response = controller.Put(new IncluirProdutoNoCarrinhoRequest { IdProduto = idProduto, IdCarrinho = idCarrinho });
 
             var mensagem = response.Value.Mensagem;
 
             Assert.AreEqual("Produto não incluído no carrinho", mensagem);
         }
+
+        [Test]
+        [TestCase(122)]
+        public void Validar_Inserir_Produto(int idProduto)
+        {
+            var controller = new ProdutoController(_produtoService);
+            var response = controller.Put(new InserirProdutoRequest { IdProduto  = idProduto });
+
+            
+        }
+
     }
 }
