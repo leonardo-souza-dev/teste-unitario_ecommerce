@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Web.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class ProdutoController : ControllerBase
     {
@@ -20,12 +19,12 @@ namespace Ecommerce.Web.Controllers
             _produtoService = produtoService;
         }
         
-        [HttpPut("/InserirProduto")]
-        public ActionResult<IncluirProdutoNoCarrinhoResponse> Put([FromBody]InserirProdutoRequest request)
+        [HttpPut("/inserirProduto")]
+        public ActionResult<IncluirProdutoNoCarrinhoResponse> InserirProduto([FromBody]InserirProdutoRequest request)
         {
             try
             {
-                var resultado = _produtoService.Inserir(new Produto { IdProduto = request.IdProduto });
+                var resultado = _produtoService.Inserir(new Produto { Id = request.IdProduto });
 
                 return new IncluirProdutoNoCarrinhoResponse { Mensagem = resultado.Mensagem, Sucesso = true };
             }

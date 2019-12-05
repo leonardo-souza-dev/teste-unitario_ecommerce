@@ -5,6 +5,7 @@ namespace Ecommerce.Domain
     public interface IProdutoRepository
     {
         Produto Inserir(Produto produto);
-        Produto Obter(int idProduto);
+        Produto Obter(string idProduto);
+        void Remover(string idProduto);
     }
 }

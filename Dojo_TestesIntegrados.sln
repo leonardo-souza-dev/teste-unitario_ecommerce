@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Web", "Ecommerce\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Tests", "Ecommerce.Tests\Ecommerce.Tests.csproj", "{0DEBCB74-7B0B-4CF7-B008-814F6DC5FFA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Infrastructure.MongoDB", "Ecommerce.Infrastructure.MongoDB\Ecommerce.Infrastructure.MongoDB.csproj", "{835F28E4-7947-4CD7-9D07-0CC38A792BB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Infrastructure.MongoDB", "Ecommerce.Infrastructure.MongoDB\Ecommerce.Infrastructure.MongoDB.csproj", "{835F28E4-7947-4CD7-9D07-0CC38A792BB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Domain", "Ecommerce.Domain\Ecommerce.Domain.csproj", "{173A1A84-37ED-4B96-BF83-C773CD91D5E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Domain", "Ecommerce.Domain\Ecommerce.Domain.csproj", "{173A1A84-37ED-4B96-BF83-C773CD91D5E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Application", "Ecommerce.Application\Ecommerce.Application.csproj", "{494B4121-69B9-43FF-B07F-55FA314ECA88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Application", "Ecommerce.Application\Ecommerce.Application.csproj", "{494B4121-69B9-43FF-B07F-55FA314ECA88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Application.Impl", "Ecommerce.Application.Impl\Ecommerce.Application.Impl.csproj", "{869AEA55-45B3-4B88-8009-E272DDD84080}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Application.Impl", "Ecommerce.Application.Impl\Ecommerce.Application.Impl.csproj", "{869AEA55-45B3-4B88-8009-E272DDD84080}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

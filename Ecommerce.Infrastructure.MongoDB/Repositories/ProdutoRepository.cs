@@ -2,6 +2,7 @@
 using Ecommerce.Domain.Entities;
 using MongoDB.Driver;
 
+
 namespace Ecommerce.Infrastructure.MongoDB
 {
     public class ProdutoRepository : IProdutoRepository
@@ -23,9 +24,14 @@ namespace Ecommerce.Infrastructure.MongoDB
             return produto;
         }
 
-        public Produto Obter(int idProduto)
+        public void Remover(string idProduto)
         {
-            return _produtos.Find(x => x.IdProduto == idProduto).FirstOrDefault();
+            _produtos.DeleteOne(p => p.Id == idProduto);
+        }
+
+        public Produto Obter(string idProduto)
+        {
+            return _produtos.Find(x => x.Id == idProduto).FirstOrDefault();
         }
     }
 }

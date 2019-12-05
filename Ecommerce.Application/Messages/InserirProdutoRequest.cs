@@ -7,6 +7,6 @@ namespace Ecommerce.Application.Messages
 {
     public class InserirProdutoRequest
     {
-        public int IdProduto { get; set; }
+        public string IdProduto { get; set; }
     }
 }

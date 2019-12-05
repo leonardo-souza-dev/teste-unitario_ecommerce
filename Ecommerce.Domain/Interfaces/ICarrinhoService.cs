@@ -4,7 +4,7 @@ namespace Ecommerce.Domain.Interfaces
 {
     public interface ICarrinhoService
     {
-        Resultado<Carrinho> AdicionarProdutoAoCarrinho(Produto produto, int? idCarrinho);
+        Resultado<Carrinho> AdicionarProdutoAoCarrinho(Produto produto, string idCarrinho);
         
     }
 }

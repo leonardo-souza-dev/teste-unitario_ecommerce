@@ -7,7 +7,7 @@ namespace Ecommerce.Application.Messages
 {
     public class IncluirProdutoNoCarrinhoRequest
     {
-        public int IdProduto { get; set; }
-        public int? IdCarrinho { get; set; }
+        public string IdProduto { get; set; }
+        public string IdCarrinho { get; set; }
     }
 }

@@ -18,11 +18,12 @@ namespace Ecommerce.Tests
         private IProdutoRepository _produtoRepository;
         private IProdutoService _produtoService;
 
+        private string _idProdutoTemp;
+
         [SetUp]
         public void Setup()
         {
             var settings = ObterSettings();
-
             _carrinhoRepository = new CarrinhoRepository(settings);
             _produtoRepository = new ProdutoRepository(settings);
             _carrinhoService = new CarrinhoService(_carrinhoRepository, _produtoRepository);
@@ -40,42 +41,51 @@ namespace Ecommerce.Tests
             return settings;
         }
 
-        [Test]
-        [TestCase(122, null)]
-        public void Validar_Mensagem_Produto_incluido_no_carrinho_com_sucesso(int idProduto, int? idCarrinho)
+        [TearDown]
+        public void Cleanup()
         {
-            var controller = new CarrinhoController(_carrinhoService);
-            var response = controller.Put(new IncluirProdutoNoCarrinhoRequest { IdProduto = idProduto, IdCarrinho = idCarrinho });
-
-            var mensagem = response.Value.Mensagem;
-
-            Assert.AreEqual("Produto incluído no carrinho com sucesso", mensagem);
+            _produtoRepository.Remover(_idProdutoTemp);
         }
 
         [Test]
-        [TestCase(7, null)]
-        [TestCase(-1100, null)]
-        [TestCase(-1, 9944326)]
-        [TestCase(101, 9944326)]
-        public void Validar_Mensagem_Produto_nao_incluido_no_carrinho(int idProduto, int? idCarrinho)
+        [TestCase("12345678901234567890123a", null)]
+        public void Validar_Mensagem_Produto_incluido_no_carrinho_com_sucesso(string idProduto, string idCarrinho)
         {
+            //setup
+            _idProdutoTemp = idProduto;
+            _produtoRepository.Inserir(new Domain.Entities.Produto { Id = idProduto });
+            //arrange
             var controller = new CarrinhoController(_carrinhoService);
-            var response = controller.Put(new IncluirProdutoNoCarrinhoRequest { IdProduto = idProduto, IdCarrinho = idCarrinho });
 
+            //act
+            var response = controller.AdicionarProdutoAoCarrinho(new IncluirProdutoNoCarrinhoRequest { IdProduto = idProduto, IdCarrinho = idCarrinho });
+
+            //assert
+            Assert.AreEqual("Produto incluído no carrinho com sucesso", response.Value.Mensagem);
+        }
+
+        [Test]
+        [TestCase("2891F050E489629A01C4021A", null)]
+        [TestCase("91F050E489629A01C4021828", null)]
+        [TestCase("9A01C40218291F050E489627", "C40050E4889629A01218291F")]
+        [TestCase("629A01C40218291F050E4898", "C40050E4889629A01218291F")]
+        public void Validar_Mensagem_Produto_nao_incluido_no_carrinho(string idProduto, string idCarrinho)
+        {
+            //arrange
+            var controller = new CarrinhoController(_carrinhoService);
+
+            //act
+            var response = controller.AdicionarProdutoAoCarrinho(
+                new IncluirProdutoNoCarrinhoRequest 
+                { 
+                    IdProduto = idProduto, 
+                    IdCarrinho = idCarrinho 
+                });
+
+            //assert
             var mensagem = response.Value.Mensagem;
 
             Assert.AreEqual("Produto não incluído no carrinho", mensagem);
         }
-
-        [Test]
-        [TestCase(122)]
-        public void Validar_Inserir_Produto(int idProduto)
-        {
-            var controller = new ProdutoController(_produtoService);
-            var response = controller.Put(new InserirProdutoRequest { IdProduto  = idProduto });
-
-            
-        }
-
     }
 }

@@ -18,21 +18,21 @@ namespace Ecommerce.Application.Impl
             _produtoRepository = produtoRepository;
         }
 
-        public Resultado<Carrinho> AdicionarProdutoAoCarrinho(Produto request, int? idCarrinho)
+        public Resultado<Carrinho> AdicionarProdutoAoCarrinho(Produto request, string idCarrinho)
         {
             Carrinho carrinho = null;
 
-            if (idCarrinho.HasValue)
+            if (!string.IsNullOrEmpty(idCarrinho))
             {
-                carrinho = _carrinhoRepository.Obter(idCarrinho.Value);
+                carrinho = _carrinhoRepository.Obter(idCarrinho);
             }
 
             if (carrinho == null)
             {
-                carrinho = _carrinhoRepository.Inserir(new Carrinho());
+                carrinho = _carrinhoRepository.Inserir(new Carrinho { Id = idCarrinho});
             }
 
-            var produto = _produtoRepository.Obter(request.IdProduto);
+            var produto = _produtoRepository.Obter(request.Id);
 
             var resultado = new Resultado<Carrinho>();
 

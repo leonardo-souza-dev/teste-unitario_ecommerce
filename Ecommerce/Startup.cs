@@ -28,7 +28,6 @@ namespace Ecommerce.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -37,14 +36,13 @@ namespace Ecommerce.Web
             services.AddTransient<ICarrinhoRepository, CarrinhoRepository>();
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
             services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title= "Employee API", Version = "V1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title= "Dojo_TestesIntegrados API", Version = "V1" });
             });
 
             services.Configure<EcommerceDatabaseSettings>(Configuration.GetSection(nameof(EcommerceDatabaseSettings)));
             services.AddSingleton<IEcommerceDatabaseSettings>(sp => sp.GetRequiredService<IOptions<EcommerceDatabaseSettings>>().Value);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

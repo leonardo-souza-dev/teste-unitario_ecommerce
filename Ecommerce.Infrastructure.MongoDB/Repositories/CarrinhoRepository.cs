@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Linq;
 
@@ -17,11 +18,6 @@ namespace Ecommerce.Infrastructure.MongoDB
             _carrinhos = database.GetCollection<Carrinho>(settings.CarrinhoCollectionName);
         }
 
-        public Carrinho Atualizar(Carrinho carrinho)
-        {
-            return carrinho;
-        }
-
         public Carrinho Inserir(Carrinho carrinho)
         {
             _carrinhos.InsertOne(carrinho);
@@ -29,9 +25,16 @@ namespace Ecommerce.Infrastructure.MongoDB
             return carrinho;
         }
 
-        public Carrinho Obter(int idCarrinho)
+        public Carrinho Obter(string id)
         {
-            return _carrinhos.Find(x => x.IdCarrinho == idCarrinho).FirstOrDefault();
+            return _carrinhos.Find(x => x.Id == id).FirstOrDefault();
+        }
+
+        public Carrinho Atualizar(Carrinho carrinho)
+        {
+            _carrinhos.ReplaceOne(c => c.Id == carrinho.Id, carrinho);
+
+            return carrinho;
         }
     }
 }

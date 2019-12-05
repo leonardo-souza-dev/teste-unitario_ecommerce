@@ -10,8 +10,5 @@ namespace Ecommerce.Domain.Entities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-
-        [BsonElement("idProduto")]
-        public int IdProduto { get; set; }
     }
 }
