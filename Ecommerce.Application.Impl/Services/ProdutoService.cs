@@ -18,16 +18,22 @@ namespace Ecommerce.Application.Impl
 
         public Resultado<Produto> Inserir(Produto produto)
         {
+            if (produto.Descricao.Length <= 2)
+                return new Resultado<Produto>
+                {
+                    Dado = null,
+                    Mensagem = "Descrição deve ter mais de 2 caracteres",
+                    Sucesso = false
+                };
+
              _produtoRepository.Inserir(produto);
 
-            var resultado = new Resultado<Produto>
+            return new Resultado<Produto>
             {
                 Mensagem = "Produto incluído na base com sucesso",
                 Dado = produto,
                 Sucesso = true
             };
-
-            return resultado;
         }
     }
 }

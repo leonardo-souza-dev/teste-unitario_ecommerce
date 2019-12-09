@@ -20,11 +20,12 @@ namespace Ecommerce.Web.Controllers
         }
         
         [HttpPut("/inserirProduto")]
-        public ActionResult<IncluirProdutoNoCarrinhoResponse> InserirProduto([FromBody]InserirProdutoRequest request)
+        public ActionResult<IncluirProdutoNoCarrinhoResponse>InserirProduto([FromBody]InserirProdutoRequest request)
         {
             try
             {
-                var resultado = _produtoService.Inserir(new Produto { Id = request.IdProduto });
+                var produto = new Produto { Id = request.IdProduto, Descricao = request.Descricao };
+                var resultado = _produtoService.Inserir(produto);
 
                 return new IncluirProdutoNoCarrinhoResponse { Mensagem = resultado.Mensagem, Sucesso = true };
             }

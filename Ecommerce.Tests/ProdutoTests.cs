@@ -44,20 +44,37 @@ namespace Ecommerce.Tests
         }
 
         [Test]
-        [TestCase("A29A01C40218291FE7898050")]
-        public void Validar_Inserir_Produto(string idProduto)
+        [TestCase("A29A01C40218291FE7898050", "Geladeira")]
+        public void Validar_Inserir_Produto(string idProduto, string descricao)
         {
             //arrange
             var controller = new ProdutoController(_produtoService);
             _idProdutoTemp = idProduto;
 
             //act
-            var response = controller.InserirProduto(new InserirProdutoRequest { IdProduto  = idProduto });
+            var response = controller.InserirProduto(new InserirProdutoRequest { IdProduto = idProduto, Descricao = descricao });
 
             //assert
             Assert.AreEqual("Produto incluído na base com sucesso", response.Value.Mensagem);
 
-            //deleto
+            //delete
+        }
+
+        [Test]
+        [TestCase("A29A01C40218291FE7898050", "Ar")]
+        public void Deve_dar_erro_ao_inserir_produto(string idProduto, string descricao)
+        {
+            //arrange
+            var controller = new ProdutoController(_produtoService);
+            _idProdutoTemp = idProduto;
+
+            //act
+            var response = controller.InserirProduto(new InserirProdutoRequest { IdProduto = idProduto, Descricao = descricao });
+
+            //assert
+            Assert.AreEqual("Descrição deve ter mais de 2 caracteres", response.Value.Mensagem);
+
+            //delete
         }
     }
 }
